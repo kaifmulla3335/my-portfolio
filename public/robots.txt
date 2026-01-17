@@ -1,0 +1,15 @@
+# robots.txt for Portfolio Website
+# This file tells search engines which pages to crawl
+
+User-agent: *
+Allow: /
+
+# Disallow admin or test pages if any
+# Disallow: /admin/
+# Disallow: /test/
+
+# Sitemap location (update after deployment)
+Sitemap: https://your-portfolio.vercel.app/sitemap.xml
+
+# Crawl-delay (optional, helps prevent server overload)
+Crawl-delay: 1
