@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import resumePdf from "../assets/Mohammadkaif Mulla Resume.pdf";
+
 import { 
   Mail, Linkedin, Github, Instagram, ExternalLink, 
   Download, ChevronDown, Code, 
@@ -128,18 +130,19 @@ const Hero = () => {
 
   const handleResumeClick = () => setShowResumeModal(true);
   
-  const handleDownloadResume = () => {
-    const link = document.createElement('a');
-    link.href = '/src/assets/Mohammadkaif Mulla Resume.pdf';
-    link.download = 'Mohammadkaif_Mulla_Resume.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+const handleDownloadResume = () => {
+  const link = document.createElement('a');
+  link.href = resumePdf;
+  link.download = 'Kaif_Mulla_Resume.pdf';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
 
-  const handleViewResume = () => {
-    window.open('/src/assets/Mohammadkaif Mulla Resume.pdf', '_blank');
-  };
+const handleViewResume = () => {
+  window.open(resumePdf, '_blank', 'noopener,noreferrer');
+};
+
 
   return (
     <>

@@ -1,6 +1,8 @@
 import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail, Code, Briefcase, Award } from 'lucide-react';
+import profileImg from "../assets/my_pic.jpg";
+
 
 const container = {
   hidden: { opacity: 0 },
@@ -20,40 +22,40 @@ const About = () => {
   const calculateExperience = useMemo(() => {
     const startDate = new Date(2025, 8, 1); // Sep 1, 2025 (month is 0-indexed)
     const endDate = new Date(2026, 6, 31); // July 31, 2026
-    
+
     const today = new Date();
     const currentDate = today < endDate ? today : endDate; // Cap at end date
-    
+
     const diffTime = Math.abs(currentDate - startDate);
     const diffMonths = Math.floor(diffTime / (1000 * 60 * 60 * 24 * 30.44)); // Average month length
-    
+
     return diffMonths;
   }, []);
 
- const stats = [
-  { 
-    icon: Code, 
-    value: '8+', 
-    label: 'Technologies Used', 
-    color: 'from-cyan-500 to-blue-500',
-    showPlus: true
-  },
-  { 
-    icon: Briefcase, 
-    value: calculateExperience, 
-    label: 'Industry Experience', 
-    color: 'from-blue-500 to-indigo-500',
-    showPlus: true,
-    smallLabel: true // This will trigger the small "Months" display
-  },
-  { 
-    icon: Award, 
-    value: '3+', 
-    label: 'Achievements', 
-    color: 'from-indigo-500 to-purple-500',
-    showPlus: true
-  },
-];
+  const stats = [
+    {
+      icon: Code,
+      value: '8+',
+      label: 'Technologies Used',
+      color: 'from-cyan-500 to-blue-500',
+      showPlus: true
+    },
+    {
+      icon: Briefcase,
+      value: calculateExperience,
+      label: 'Industry Experience',
+      color: 'from-blue-500 to-indigo-500',
+      showPlus: true,
+      smallLabel: true // This will trigger the small "Months" display
+    },
+    {
+      icon: Award,
+      value: '3+',
+      label: 'Achievements',
+      color: 'from-indigo-500 to-purple-500',
+      showPlus: true
+    },
+  ];
 
   return (
     <section
@@ -74,12 +76,12 @@ const About = () => {
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 bg-clip-text text-transparent">
             About Me
           </h2>
-          <motion.div 
+          <motion.div
             initial={{ width: 0 }}
             whileInView={{ width: '4rem' }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="h-1 w-16 sm:w-20 mx-auto bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full" 
+            className="h-1 w-16 sm:w-20 mx-auto bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full"
           />
         </motion.div>
 
@@ -107,18 +109,19 @@ const About = () => {
               >
                 <div className="relative overflow-hidden aspect-[3/4]">
                   <img
-                    src="/src/assets/my_pic.jpg"
-                    alt="Mohammad Kaif Mulla"
+                    src={profileImg}
+                    alt="Kaif Mulla"
                     className="w-full h-full object-cover"
                     style={{ objectPosition: 'center 25%' }}
                   />
+
                   {/* Subtle gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/30 via-transparent to-transparent" />
                 </div>
 
                 {/* STATUS Badge */}
                 <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4">
-                  <motion.div 
+                  <motion.div
                     className="relative overflow-hidden bg-white/10 backdrop-blur-xl border border-white/20 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 shadow-lg"
                     whileHover={{ scale: 1.04 }}
                   >
@@ -168,7 +171,7 @@ const About = () => {
                 whileHover={{ opacity: 1 }}
                 className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/8 to-blue-500/0 transition-opacity duration-500"
               />
-              
+
               <p className="text-sm sm:text-base md:text-lg text-gray-300 leading-relaxed relative z-10">
                 Final-year <span className="text-cyan-400 font-semibold">B.Tech Computer Science</span> student and{' '}
                 <span className="text-blue-400 font-semibold">Software Developer</span> with hands-on experience
@@ -199,9 +202,9 @@ const About = () => {
                     whileHover={{ opacity: 1 }}
                     className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-blue-500/5 to-transparent"
                   />
-                  
+
                   <div className="relative z-10 flex items-center gap-2 sm:gap-2.5">
-                    <motion.div 
+                    <motion.div
                       className={`w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-md sm:rounded-md bg-gradient-to-br ${stat.color} flex items-center justify-center shadow-md`}
                       whileHover={{ rotate: 360 }}
                       transition={{ duration: 0.5 }}
@@ -241,7 +244,7 @@ const About = () => {
             {/* CONTACT INFO - Made more compact */}
             <motion.div variants={item} className="flex flex-col gap-2.5 sm:gap-3">
               {/* Location */}
-              <motion.div 
+              <motion.div
                 whileHover={{ scale: 1.015, x: 3 }}
                 className="bg-gradient-to-br from-slate-800/60 to-slate-900/60 backdrop-blur-xl rounded-lg sm:rounded-lg px-4 py-2.5 sm:py-3 border border-cyan-500/20 relative overflow-hidden group"
               >
@@ -250,7 +253,7 @@ const About = () => {
                   whileHover={{ opacity: 1 }}
                   className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-blue-500/0"
                 />
-                
+
                 <div className="relative z-10 flex items-center gap-2.5 sm:gap-3">
                   <motion.div
                     whileHover={{ rotate: 10, scale: 1.1 }}
@@ -266,7 +269,7 @@ const About = () => {
 
               {/* Phone & Email */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
-                <motion.div 
+                <motion.div
                   whileHover={{ scale: 1.015, y: -2 }}
                   className="bg-gradient-to-br from-slate-800/60 to-slate-900/60 backdrop-blur-xl rounded-lg sm:rounded-lg px-4 py-2.5 sm:py-3 border border-cyan-500/20 relative overflow-hidden group"
                 >
@@ -275,7 +278,7 @@ const About = () => {
                     whileHover={{ opacity: 1 }}
                     className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-blue-500/0"
                   />
-                  
+
                   <div className="relative z-10 flex items-center gap-2.5 sm:gap-3">
                     <motion.div
                       whileHover={{ rotate: 10, scale: 1.1 }}
@@ -289,7 +292,7 @@ const About = () => {
                   </div>
                 </motion.div>
 
-                <motion.div 
+                <motion.div
                   whileHover={{ scale: 1.015, y: -2 }}
                   className="bg-gradient-to-br from-slate-800/60 to-slate-900/60 backdrop-blur-xl rounded-lg sm:rounded-lg px-4 py-2.5 sm:py-3 border border-cyan-500/20 relative overflow-hidden group"
                 >
@@ -298,7 +301,7 @@ const About = () => {
                     whileHover={{ opacity: 1 }}
                     className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-blue-500/0"
                   />
-                  
+
                   <div className="relative z-10 flex items-center gap-2.5 sm:gap-3">
                     <motion.div
                       whileHover={{ rotate: 10, scale: 1.1 }}

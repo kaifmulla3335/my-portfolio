@@ -9,6 +9,10 @@ import {
 import { FaJava } from 'react-icons/fa';
 import { VscCode } from 'react-icons/vsc';
 import { TbApi } from 'react-icons/tb';
+import codewizardCert from "../assets/Codewizard Certificate.jpeg";
+import codingClubCert from "../assets/Coding Club Certificate.jpg";
+import hackathonCert from "../assets/Hackathon Certificate.jpeg";
+
 
 const Skills = () => {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -59,29 +63,30 @@ const Skills = () => {
     }
   ];
 
-  const achievements = [
-    { 
-      icon: Trophy, 
-      title: '2nd Rank', 
-      description: 'CodeWizard Competition', 
-      color: 'text-yellow-400',
-      certificate: '/src/assets/Codewizard Certificate.jpeg'
-    },
-    { 
-      icon: Star, 
-      title: '2 Years', 
-      description: 'Coding Club Member', 
-      color: 'text-cyan-400',
-      certificate: '/src/assets/Coding Club Certificate.jpg'
-    },
-    { 
-      icon: Award, 
-      title: '36 Hours', 
-      description: 'National Hackathon', 
-      color: 'text-purple-400',
-      certificate: '/src/assets/Hackathon Certificate.jpeg'
-    }
-  ];
+const achievements = [
+  { 
+    icon: Trophy, 
+    title: '2nd Rank', 
+    description: 'CodeWizard Competition', 
+    color: 'text-yellow-400',
+    certificate: codewizardCert
+  },
+  { 
+    icon: Star, 
+    title: '2 Years', 
+    description: 'Coding Club Member', 
+    color: 'text-cyan-400',
+    certificate: codingClubCert
+  },
+  { 
+    icon: Award, 
+    title: '36 Hours', 
+    description: 'National Hackathon', 
+    color: 'text-purple-400',
+    certificate: hackathonCert
+  }
+];
+
 
   const allSkills = skillCategories.flatMap(cat => cat.skills);
   const displaySkills = activeCategory === 'all' 
