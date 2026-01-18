@@ -50,9 +50,52 @@ const Navbar = () => {
   const handleNavClick = (id) => {
     setActive(id);
     setMobileMenuOpen(false);
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    
+    // Wait a bit for mobile menu to close before scrolling
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) {
+        // Get navbar height
+        const navbar = document.querySelector('nav');
+        const navbarHeight = navbar ? navbar.offsetHeight : 80;
+        
+        // Calculate position with navbar offset
+        const elementPosition = el.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+        
+        // Smooth scroll to position
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+        });
+      }
+    }, 100); // Small delay for mobile menu animation
   };
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [mobileMenuOpen]);
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (mobileMenuOpen && !e.target.closest('.mobile-menu-container')) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [mobileMenuOpen]);
 
   return (
     <>
@@ -66,8 +109,8 @@ const Navbar = () => {
             : "bg-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-14 sm:h-16 md:h-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <motion.a
               href="#home"
@@ -98,8 +141,8 @@ const Navbar = () => {
               />
             </motion.a>
 
-            {/* Desktop Nav */}
-            <div className="hidden lg:flex items-center gap-1 xl:gap-2">
+            {/* Desktop Nav (hidden on mobile) */}
+            <div className="hidden lg:flex items-center space-x-1 xl:space-x-2">
               {navItems.map((item) => (
                 <motion.a
                   key={item.id}
@@ -110,7 +153,7 @@ const Navbar = () => {
                   }}
                   whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className={`relative px-3 xl:px-4 py-2 text-xs xl:text-sm font-semibold cursor-pointer rounded-lg transition-all duration-300 ${
+                  className={`relative px-3 xl:px-4 py-2 text-sm xl:text-base font-medium cursor-pointer rounded-lg transition-all duration-300 ${
                     active === item.id
                       ? "text-cyan-400"
                       : "text-gray-300 hover:text-cyan-400"
@@ -137,7 +180,7 @@ const Navbar = () => {
               ))}
             </div>
 
-            {/* Hire Me Button - Desktop */}
+            {/* Hire Me Button - Desktop (hidden on mobile) */}
             <motion.button
               onClick={() => setContactOpen(true)}
               whileHover={{ 
@@ -145,7 +188,7 @@ const Navbar = () => {
                 boxShadow: "0 0 30px rgba(6,182,212,0.6)",
               }}
               whileTap={{ scale: 0.95 }}
-              className="hidden lg:block relative px-4 xl:px-6 py-2 xl:py-2.5 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-xs xl:text-sm font-semibold shadow-lg shadow-cyan-500/30 overflow-hidden group"
+              className="hidden lg:block relative px-5 xl:px-6 py-2 xl:py-2.5 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm xl:text-base font-semibold shadow-lg shadow-cyan-500/30 overflow-hidden group"
             >
               <motion.div
                 animate={{ x: ["-100%", "100%"] }}
@@ -155,11 +198,14 @@ const Navbar = () => {
               <span className="relative z-10">Hire Me</span>
             </motion.button>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button (visible on mobile) */}
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.9 }}
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setMobileMenuOpen(!mobileMenuOpen);
+              }}
               className="lg:hidden w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-slate-800/60 backdrop-blur-sm border border-cyan-500/30 flex items-center justify-center text-cyan-400 hover:bg-slate-800/80 hover:border-cyan-500/50 transition-all duration-300 shadow-lg shadow-cyan-500/10"
             >
               <AnimatePresence mode="wait">
@@ -188,7 +234,7 @@ const Navbar = () => {
             </motion.button>
           </div>
 
-          {/* Mobile Menu */}
+          {/* Mobile Menu (visible on mobile) */}
           <AnimatePresence>
             {mobileMenuOpen && (
               <motion.div
@@ -196,13 +242,14 @@ const Navbar = () => {
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                className="lg:hidden overflow-hidden"
+                className="lg:hidden overflow-hidden mobile-menu-container"
               >
                 <motion.div 
-                  className="flex flex-col gap-1 bg-slate-800/70 backdrop-blur-xl rounded-2xl p-3 mb-4 border border-cyan-500/20 shadow-2xl shadow-cyan-500/10"
+                  className="flex flex-col gap-1 bg-slate-800/70 backdrop-blur-xl rounded-2xl p-3 mt-2 border border-cyan-500/20 shadow-2xl shadow-cyan-500/10"
                   initial={{ y: -20 }}
                   animate={{ y: 0 }}
                   exit={{ y: -20 }}
+                  onClick={(e) => e.stopPropagation()}
                 >
                   {navItems.map((item, index) => (
                     <motion.button
