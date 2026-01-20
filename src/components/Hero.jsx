@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import resumePdf from "../assets/Mohammadkaif Mulla Resume.pdf";
+import resumePdf from "../assets/KaifMulla_SoftwareDevloper_Resume.pdf";
+
+
 
 import { 
   Mail, Linkedin, Github, Instagram, ExternalLink, 
@@ -133,7 +135,7 @@ const Hero = () => {
 const handleDownloadResume = () => {
   const link = document.createElement('a');
   link.href = resumePdf;
-  link.download = 'Kaif_Mulla_Resume.pdf';
+  link.download = 'KaifMulla_SoftwareDevloper_Resume.pdf';
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
