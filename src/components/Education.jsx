@@ -10,7 +10,7 @@ const Education = () => {
       institution: 'D. Y. Patil Agriculture & Technical University, Kolhapur',
       duration: 'Nov 2022 – Sep 2026',
       status: 'Pursuing',
-      grade: 'Current CGPA: 8.5',
+      grade: 'Current CGPA: 8.63',
       gradient: 'from-cyan-500 to-blue-600',
       achievements: ['Dean\'s List', 'Top 10% of Class']
     },
